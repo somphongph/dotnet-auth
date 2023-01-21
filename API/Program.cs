@@ -1,5 +1,8 @@
+using System.Text;
 using Domain;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,35 @@ builder.Services.AddInfrastructureServices(builder.Configuration);
 
 #region Registration
 builder.Services.AddHttpContextAccessor();
+#endregion
+
+#region CORS
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("CorsPolicy",
+            builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+        //.AllowCredentials());
+    });
+#endregion 
+
+#region JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration.GetValue<string>("JWT:Issuer"),
+            ValidAudience = builder.Configuration.GetValue<string>("JWT:Audience"),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetValue<string>("JWT:SecurityKey")))
+        };
+    });
 #endregion
 
 #region NLog
@@ -36,6 +68,10 @@ if (app.Environment.IsDevelopment())
 }
 
 // app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
+
+app.UseAuthorization();
 
 app.UseAuthorization();
 
