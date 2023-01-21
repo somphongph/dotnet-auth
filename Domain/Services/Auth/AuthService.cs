@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Text;
 using Domain.Helpers;
 using Domain.Interfaces.Repositories;
-using Domain.Models;
 using Domain.Services.Auth.Shared;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;

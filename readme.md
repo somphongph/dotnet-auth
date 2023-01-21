@@ -1,4 +1,4 @@
-# C# Template Project
+# C# Dotnet Auth Project
 
 ## Technology Concept
 
@@ -10,11 +10,13 @@ Base SQL Repository
 Base MongoDb Repository
 Base Cache Repository
 Separate DI Registration
+JWT Token
+Refresh Token
 
 ## Tool
 
 MongoDB
-MSSQL
+PostgreSQL
 Redis
 MediatR
 NLog to Elasticsearch
