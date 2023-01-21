@@ -55,9 +55,10 @@ namespace Infrastructure.Repositories
             return await query.ToListAsync();
         }
 
-        public virtual async Task<T?> GetByIdAsync(Guid id)
+        public virtual async Task<T?> GetByIdAsync(string id)
         {
-            return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == id);
+            var guid = Guid.Parse(id);
+            return await _dbContext.Set<T>().FirstOrDefaultAsync(x => x.Id == guid);
         }
 
         public async Task<T> AddAsync(T entity)
