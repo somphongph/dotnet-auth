@@ -15,7 +15,7 @@ namespace Infrastructure.Persistence
             _contextAccessor = contextAccessor ?? throw new ArgumentNullException(nameof(contextAccessor));
         }
 
-        public virtual DbSet<ShortLink> Shortener { get; set; } = null!;
+        public virtual DbSet<Account> Account { get; set; } = null!;
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
         {

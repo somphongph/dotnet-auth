@@ -34,12 +34,12 @@ namespace Infrastructure
             #endregion
 
             #region Repositories dependency injection
-            services.AddScoped<IShortLinkRepository, ShortLinkRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             #endregion
 
             #region MongoDB Repositories dependency injection
             services.AddScoped<IMongoContext, MongoContext>();
-            services.AddScoped<IShortLinkMongoRepository, ShortLinkMongoRepository>();
+            services.AddScoped<IAuthenMongoRepository, AuthenMongoRepository>();
             #endregion
 
             return services;

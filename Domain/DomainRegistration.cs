@@ -1,4 +1,5 @@
 using System.Reflection;
+using Domain.Services.Auth;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,11 @@ namespace Domain
             #region Filters
             // services.AddSingleton<ServiceAuthenFilter>();
             #endregion
+
+            #region Services
+            services.AddScoped<IAuthService, AuthService>();
+            #endregion
+
 
             return services;
         }
